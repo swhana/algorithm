@@ -18,6 +18,7 @@ public class BOJ_2447_별찍기10 {
 			return;
 		}
 
+		//test
 		if(N==1){
 			arr[x][y]='*';
 			return;
