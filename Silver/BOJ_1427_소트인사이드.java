@@ -11,7 +11,6 @@ public class BOJ_1427_소트인사이드 {
         String N = br.readLine();
 
         int[] arr = new int[N.length()];
-        int idx = 0;
 
         for (int i = 0; i < N.length(); i++) {
             arr[i] = N.charAt(i) - '0';
