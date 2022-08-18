@@ -12,8 +12,6 @@ public class Solution {
 			Stack<Integer> num = new Stack();
 			String res = "";
 
-			String[] op = { "+", "*" };
-
 			for (int i = 0; i < str.length(); i++) {
 				char c = str.charAt(i);
 				if (c - '0' >= 0 && c - '0' <= 9) {
@@ -28,10 +26,16 @@ public class Solution {
 						} else
 							res += operator.pop();
 					}
-				} else if (c == '*')
+				} else if (c == '*' || c == '/') {
+					if (operator.peek() == '/' || operator.peek() == '*')
+						res += operator.pop();
 					operator.push(c);
-				else {
+
+				} else {
 					if (operator.isEmpty()) {
+						operator.push(c);
+					} else if (operator.peek() == '-' || operator.peek() == '+') {
+						res += operator.pop();
 						operator.push(c);
 					} else {
 						while (!operator.isEmpty()) {
@@ -58,11 +62,16 @@ public class Solution {
 					int b = num.pop();
 					if (c == '*')
 						num.push(a * b);
+					else if (c == '/')
+						num.push(b / a);
+					else if (c == '-')
+						num.push(b - a);
 					else
 						num.push(a + b);
 				}
 			}
 
+//			System.out.println(res);	//후위 표기법 출력
 			System.out.println("#" + tc + " " + num.pop());
 
 		}
