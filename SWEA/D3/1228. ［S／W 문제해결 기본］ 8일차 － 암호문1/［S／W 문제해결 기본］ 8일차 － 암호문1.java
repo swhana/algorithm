@@ -17,6 +17,7 @@ public class Solution {
 
 			int C = sc.nextInt();
 
+			// 특정 위치부터 추가해주면 됨
 			for (int i = 0; i < C; i++) {
 				sc.next();
 				int x = sc.nextInt();
@@ -30,6 +31,7 @@ public class Solution {
 
 			sb.append("#" + k + " ");
 
+			// 출력이 암호문 10개 제한인거에만 주의
 			for (int i = 0; i < 10; i++) {
 				sb.append(list.poll());
 			}
