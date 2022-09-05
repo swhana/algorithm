@@ -9,7 +9,7 @@ public class Main {
     static int N;
 
     static long func(int[] arr, long lo, long hi) {
-        while (lo <= hi) {
+        while (lo <= hi) {  //lo < hi여도 안됨
             long cnt = 0;
             long mid = (lo + hi) / 2;
 
@@ -20,7 +20,7 @@ public class Main {
             if (cnt < N) {
                 hi = mid - 1;
             } else {
-                lo = mid + 1;
+                lo = mid + 1;   //lo = mid 여도 안됨
             }
         }
         return hi;
@@ -39,6 +39,6 @@ public class Main {
             arr[i] = Integer.parseInt(br.readLine());
 
         Arrays.sort(arr);
-        System.out.println(func(arr, 1, arr[K - 1]));
+        System.out.println(func(arr, 1, arr[K - 1]));   //arr[0]이 아니라 arr[K-1]을 넣었더니 통과됐다
     }
 }
