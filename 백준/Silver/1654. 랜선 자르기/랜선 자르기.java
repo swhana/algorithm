@@ -9,7 +9,7 @@ public class Main {
     static int N;
 
     static long func(int[] arr, long lo, long hi) {
-        while (lo <= hi) {  //lo < hi여도 안됨
+        while (lo < hi) {  //lo < hi여도 안됨
             long cnt = 0;
             long mid = (lo + hi) / 2;
 
@@ -18,12 +18,12 @@ public class Main {
             }
 
             if (cnt < N) {
-                hi = mid - 1;
+                hi = mid;
             } else {
                 lo = mid + 1;   //lo = mid 여도 안됨
             }
         }
-        return hi;
+        return lo-1;
     }
 
 
@@ -35,10 +35,13 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         int[] arr = new int[K];
 
-        for (int i = 0; i < K; i++)
+        long max = 0;
+        for (int i = 0; i < K; i++) {
             arr[i] = Integer.parseInt(br.readLine());
+            if (max < arr[i])
+                max = arr[i];
+        }
 
-        Arrays.sort(arr);
-        System.out.println(func(arr, 1, arr[K - 1]));   //arr[0]이 아니라 arr[K-1]을 넣었더니 통과됐다
+        System.out.println(func(arr, 0, max + 1));   //arr[0]이 아니라 arr[K-1]을 넣었더니 통과됐다 lo = 0이면 런타임에러
     }
 }
