@@ -23,23 +23,22 @@ public class Main {
         if (x == p[x])
             return x;
         else
-            return p[x] = find(p[x]);
+            return p[x] = find(p[x]);       //memoization
     }
 
     //x와 y 병합
     public static void union(int x, int y) {
-        int a = p[x];
-        int b = p[y];
+        int a = find(x);
+        int b = find(y);
 
-        if (a != b) {
-            if (rank[a] > rank[b]) {
-                p[b] = a;
-            } else {
-                p[a] = b;
-                if (rank[a] == rank[b])
-                    rank[b]++;
-            }
+        if (rank[a] > rank[b]) {
+            p[b] = a;
+        } else {
+            p[a] = b;
+            if (rank[a] == rank[b])
+                rank[b]++;
         }
+
     }
 
     public static void main(String[] args) {
