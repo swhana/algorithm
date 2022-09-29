@@ -32,17 +32,14 @@ public class Main {
         int b = p[y];
 
         if (a != b) {
-            p[b] = a;
+            if (rank[a] > rank[b]) {
+                p[b] = a;
+            } else {
+                p[a] = b;
+                if (rank[a] == rank[b])
+                    rank[b]++;
+            }
         }
-
-
-//        if (rank[a] > rank[b]) {
-//            p[b] = a;
-//        } else {
-//            p[a] = b;
-//            if (rank[a] == rank[b])
-//                rank[b]++;
-//        }
     }
 
     public static void main(String[] args) {
@@ -53,12 +50,12 @@ public class Main {
 
         Edge[] edges = new Edge[E]; //Edge배열 생성
         p = new int[V + 1];
-//        rank = new int[V + 1];
+        rank = new int[V + 1];
 
         //초기화
         for (int i = 1; i <= V; i++) {
             p[i] = i;
-//            rank[i] = 0;
+            rank[i] = 0;
         }
 
         for (int i = 0; i < E; i++) {
@@ -72,7 +69,13 @@ public class Main {
         Arrays.sort(edges, new Comparator<Edge>() {
             @Override
             public int compare(Edge o1, Edge o2) {
-                return o1.value - o2.value;
+                if (o1.value == o2.value) {
+                    if (o1.start == o2.start)
+                        return o1.end - o2.end; //3순위
+                    else
+                        return o1.start - o2.start; //2순위
+                } else
+                    return o1.value - o2.value; //1순위
             }
         });
 
