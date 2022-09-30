@@ -39,11 +39,15 @@ public class Main {
         int N = sc.nextInt();   //우주신들의 개수(별로 간주)
         int M = sc.nextInt();   //통로들의 개수(이미 주어진 간선들의 개수)
 
+        /*
+            우주신들의 개수 N<=1000, 통로의 개수 M<=1000
+            N과 M을 포함하기 때문에 배열 생성할 때나 범위 설정시 주의
+         */
+
         star = new int[N + 1][2];
         p = new int[N + 1];
 
-
-        for (int i = 1; i <= N; i++) {
+        for (int i = 1; i <= N; i++) {  //입력은 N회 받기 때문에 i=0; i<=N; 이런식으로 해서는 안됨
             star[i][0] = sc.nextInt();
             star[i][1] = sc.nextInt();
             p[i] = i;
@@ -68,6 +72,7 @@ public class Main {
             }
         }
 
+        //거리순으로 정렬
         Arrays.sort(edges, new Comparator<Edge>() {
             @Override
             public int compare(Edge o1, Edge o2) {
