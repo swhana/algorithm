@@ -1,12 +1,19 @@
 import java.util.*;
 
+/*
+   33% 코너케이스가 아마 최단경로가 여러가지인 경우랑
+   dist의 초기화값을 Integer.MAX_VALUE로 하면 안된다고 한다
+
+ */
+
 public class Main {
-    static final int INF = 100000000;
+    static final int INF = 100000000; //33%에서 오류가 나는 원인중 하나(다른 원인도 있음)
     static List<Node>[] Edge;
-    static ArrayList<Integer> goal;
+    static int[] goal;
     static boolean[] visited;
     static int[] dist;
     static int n;
+    static StringBuilder sb = new StringBuilder();
 
     private static void dijkstra(int st) {
         boolean[] visited = new boolean[n + 1];
@@ -66,20 +73,20 @@ public class Main {
                 }
             }
 
-            goal = new ArrayList<>();
+            goal = new int[t];
             for (int i = 0; i < t; i++) {
-                goal.add(sc.nextInt());
+                goal[i] = sc.nextInt();
             }
 
             dijkstra(s);
-            Collections.sort(goal);
+            Arrays.sort(goal);
 
             for (int i : goal) {
-                if (dist[i] % 2 == 1) System.out.print(i + " ");
+                if (dist[i] % 2 == 1) sb.append(i).append(" ");
             }
-            System.out.println();
+            sb.append("\n");
         }
-
+        System.out.println(sb);
     }
 
     static class Node implements Comparable<Node> {
