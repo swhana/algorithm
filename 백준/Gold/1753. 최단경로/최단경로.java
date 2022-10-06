@@ -29,7 +29,7 @@ public class Main {
 
     private static void dijkstra(int v) {
         PriorityQueue<Node> pq = new PriorityQueue<>();
-//        visited[v] = true;
+//        visited[v] = true;    //무한루프의 원인
         dist[v] = 0;    //시작점의 거리 초기화
         pq.add(new Node(v, 0));
 
@@ -75,16 +75,19 @@ public class Main {
             int w = sc.nextInt();
 
             adjList[u].add(new Node(v, w));
-//            adjList[v].add(new Node(u, w));
+//            adjList[v].add(new Node(u, w));       //무방향이면 이것도 쓰자
         }
 
         dijkstra(st);
 
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i < V + 1; i++) {
             if (dist[i] != INF)
-                System.out.println(dist[i]);
+                sb.append(dist[i]).append("\n");
             else
-                System.out.println("INF");
+                sb.append("INF").append("\n");
         }
+
+        System.out.println(sb);
     }
 }
