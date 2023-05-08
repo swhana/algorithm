@@ -8,18 +8,18 @@ public class Main {
 		
 		String input = sc.nextLine();
 		
-		int cntZero = 0;
-		int cntOne = 0;
+		long cntZero = 0;
+		long cntOne = 0;
 		for(int i=0; i<input.length(); i++) {
 			if(input.charAt(i) == '0') cntZero++;
 			else cntOne++;
 		}
 		
-		String answer = "";
-		for(int i=0; i<cntZero/2; i++) answer += "0";
-		for(int i=0; i<cntOne/2; i++) answer += "1";
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<cntZero/2; i++) sb.append("0");
+		for(int i=0; i<cntOne/2; i++) sb.append("1");
 		
-		System.out.println(answer);
+		System.out.println(sb);
 	}
 
 }
