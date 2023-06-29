@@ -43,9 +43,9 @@ public class Main {
 	static void floyd() {
 		for(int w=1; w<N+1; w++) {
 			for(int s=1; s<N+1; s++) {
-//				if(s == w) continue;
+				if(s == w || dist[s][w] == INF) continue;
 				for(int e=1; e<N+1; e++) {
-//					if(w == e) continue;
+					if(w == e || dist[w][e] == INF) continue;
 					if(dist[s][e] > dist[s][w] + dist[w][e]) {
 						dist[s][e] = dist[s][w] + dist[w][e];
 					}
