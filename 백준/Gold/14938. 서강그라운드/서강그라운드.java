@@ -1,64 +1,72 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-	static final int INF = (int) 1e9;
-	static int n, m, r;
-	static int[][] dist;
-	static int[] item;
-	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		n = sc.nextInt();
-		m = sc.nextInt();
-		r = sc.nextInt();
-		
-		dist = new int[n+1][n+1];
-		item = new int[n+1];
-		
-		for(int i=1; i<n+1; i++) {
-			Arrays.fill(dist[i], INF);
-			dist[i][i] = 0;
-		}
-		
-		for(int i=1; i<n+1; i++) item[i] = sc.nextInt();
-		
-		for(int i=0; i<r; i++) {
-			int a = sc.nextInt();
-			int b = sc.nextInt();
-			int l = sc.nextInt();
-			
-//			dist[a][b] = Math.min(dist[a][b], l);
-//			dist[b][a] = Math.min(dist[b][a], l);
-			dist[a][b] = l;
-			dist[b][a] = l;
-		}
-		
-		floyd();
-		
-		
-		int maxItem = 0;
-		for(int s=1; s<n+1; s++) {
-			int getItem = 0;
-			for(int e=1; e<n+1; e++) {
-				if(dist[s][e] <= m) getItem += item[e];
-			}
-			
-			maxItem = Math.max(maxItem, getItem);
-		}
-		
-		System.out.println(maxItem);
-	}
+    public static int n,m,r;
+    public static int[] itemList;
+    public static int[][] townMap;
+    public static int[] result;
 
-	static void floyd() {
-		for(int w=1; w<n+1; w++) {
-			for(int s=1; s<n+1; s++) {
-				if(s == w || dist[s][w] == INF) continue;
-				for(int e=1; e<n+1; e++) {
-					if(w == e || dist[w][e] == INF) continue;
-					dist[s][e] = Math.min(dist[s][e], dist[s][w] + dist[w][e]);
-				}
-			}
-		}
-	}
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+
+        n = Integer.parseInt(stringTokenizer.nextToken());
+        m = Integer.parseInt(stringTokenizer.nextToken());
+        r = Integer.parseInt(stringTokenizer.nextToken());
+
+        itemList = new int[n+1];
+        stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+        for (int i = 1; i <= n; i++) {
+            itemList[i] = Integer.parseInt(stringTokenizer.nextToken());
+        }
+        
+        townMap = new int[n+1][n+1];
+        for (int i = 0; i < r; i++) {
+            stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+            int ep1 = Integer.parseInt(stringTokenizer.nextToken());
+            int ep2 = Integer.parseInt(stringTokenizer.nextToken());
+            int distance = Integer.parseInt(stringTokenizer.nextToken());
+
+            townMap[ep1][ep2] = distance;
+            townMap[ep2][ep1] = distance;
+        }
+
+        result = new int[n+1];
+        for (int i = 1; i <= n; i++) {
+            int[] visited = new int[n+1];
+            bfs(i,visited);
+        }
+
+        Arrays.sort(result);
+        System.out.println(result[n]);
+    }
+
+    private static void bfs(int start, int[] visited) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        queue.add(start);
+        int totalItem = itemList[start];
+
+        while (!queue.isEmpty()){
+            int now = queue.poll();
+
+            for (int i = 1; i <= n; i++) {
+                if(i == start || townMap[now][i] == 0 || visited[now] + townMap[now][i] > m) continue;
+
+                if(visited[i] >= visited[now] + townMap[now][i]) {
+                    visited[i] = visited[now] + townMap[now][i];
+                    continue;
+                }
+                if(visited[i] > 0) continue;
+
+                visited[i] = visited[now] + townMap[now][i];
+                queue.add(i);
+                totalItem += itemList[i];
+            }
+        }
+
+        result[start] = totalItem;
+    }
 }
