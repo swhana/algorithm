@@ -28,8 +28,10 @@ public class Main {
 			int b = sc.nextInt();
 			int l = sc.nextInt();
 			
-			dist[a][b] = Math.min(dist[a][b], l);
-			dist[b][a] = Math.min(dist[b][a], l);
+//			dist[a][b] = Math.min(dist[a][b], l);
+//			dist[b][a] = Math.min(dist[b][a], l);
+			dist[a][b] = l;
+			dist[b][a] = l;
 		}
 		
 		floyd();
