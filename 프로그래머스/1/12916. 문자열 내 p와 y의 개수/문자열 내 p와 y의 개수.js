@@ -7,8 +7,8 @@ function solution(s){
     let numY = 0;
     
     for(let i=0; i<a.length; i++) {
-        if(a.charAt(i) == 'P') numP++;
-        else if(a.charAt(i) == 'Y') numY++;
+        if(a[i] == 'P') numP++;
+        else if(a[i] == 'Y') numY++;
     }
     
     // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
