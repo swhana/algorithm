@@ -1,16 +1,6 @@
 function solution(n)
 {
-    var answer = 0;
-    
-    const nn = String(n);
-    
-    
-    for(let i=0; i<nn.length; i++) {
-        answer += parseInt(nn[i]);
-    }
-
-    // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-    console.log('Hello Javascript')
-
-    return answer;
+    //숫자에 + ""을 통해 String으로 바꿀수 있고,
+    //String에 *1을 통해 숫자로 인식하게 할 수 있다
+    return (n+"").split("").reduce((total, e) => total + e*1, 0);
 }
