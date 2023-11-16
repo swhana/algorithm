@@ -14,13 +14,8 @@ function dijkstra(graph, K) {
             }
         })
     }
-    
-    let cnt = 0;
-    for(let i = 0; i<dist.length; i++) {
-        if(dist[i] <= K) cnt++;
-    }
-    
-    return cnt;
+
+    return dist.filter(dist => dist <= K).length;
 }
 
 function solution(N, road, K) {
